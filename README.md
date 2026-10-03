@@ -16,7 +16,7 @@
    python main.py
    ```
    Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to the values from Google Cloud Console. `GOOGLE_REDIRECT_URI` must exactly match the URI registered in Google Cloud Console. For Render, set the credentials in the hosting provider's environment settings instead of putting them in the repository. If you only want Google sign-in and do not need to run the local copy, open the deployed app directly at https://domain-test-agent.onrender.com/.
-4. Choose **Continue with Google** on the login screen (or **Sign up with Google** after selecting Sign up). Google accounts require a verified email.
+4. Choose **Continue with Google** on the login screen (or **Sign up with Google** after selecting Sign up). Google accounts require a verified email. If the local copy has no Google credentials, its Google button sends you to the deployed app's Google sign-up flow.
 
 ## Deploy to Render (free)
 1. Push this project to a GitHub repository. In Render, choose **New + -> Blueprint** and connect that repository; Render will read [render.yaml](./render.yaml) and create the web service.

@@ -10,6 +10,7 @@ import engine
 from domains import DOMAINS
 ROOT = os.path.dirname(os.path.abspath(__file__)); DB = os.path.join(ROOT, "data.db"); SESS = {}; GOOGLE_PENDING = {}
 GOOGLE_REDIRECT_DEFAULT = "http://127.0.0.1:8765/auth/google/callback"
+GOOGLE_DEPLOYED_START = "https://domain-test-agent.onrender.com/auth/google"
 
 def load_env_file(path=os.path.join(ROOT, ".env")):
     if not os.path.isfile(path):
@@ -147,6 +148,9 @@ class H(BaseHTTPRequestHandler):
     def google_start(self):
         client_id, client_secret, redirect_uri = google_config()
         if not client_id or not client_secret:
+            production = os.environ.get("APP_ENV", "").lower() == "production" or bool(os.environ.get("RENDER"))
+            if not production:
+                return self.redirect(GOOGLE_DEPLOYED_START)
             return self.redirect("/?google_error=google_not_configured")
         parts = urlsplit(redirect_uri)
         if (parts.scheme not in ("http", "https") or not parts.netloc

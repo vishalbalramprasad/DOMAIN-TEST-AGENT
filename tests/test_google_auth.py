@@ -1,7 +1,7 @@
 import os
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from urllib.parse import parse_qs, urlsplit
 
 import main
@@ -28,6 +28,24 @@ class GoogleAuthTests(unittest.TestCase):
         self.assertEqual("S256", params["code_challenge_method"][0])
         self.assertEqual("openid email profile", params["scope"][0])
         self.assertNotIn("client_secret", params)
+
+    def test_local_google_sign_in_redirects_to_deployed_oauth(self):
+        handler = Mock()
+        with patch.object(main, "google_config", return_value=("", "", "")), patch.dict(
+            os.environ, {"APP_ENV": "development", "RENDER": ""}, clear=False
+        ):
+            main.H.google_start(handler)
+
+        handler.redirect.assert_called_once_with(main.GOOGLE_DEPLOYED_START)
+
+    def test_production_without_google_credentials_shows_configuration_error(self):
+        handler = Mock()
+        with patch.object(main, "google_config", return_value=("", "", "")), patch.dict(
+            os.environ, {"APP_ENV": "production", "RENDER": ""}, clear=False
+        ):
+            main.H.google_start(handler)
+
+        handler.redirect.assert_called_once_with("/?google_error=google_not_configured")
 
     def test_env_file_loads_values_without_overwriting_existing_environment(self):
         env_file = os.path.join(self.temp_dir.name, ".env")
