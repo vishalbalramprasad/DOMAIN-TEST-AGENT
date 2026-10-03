@@ -15,7 +15,7 @@
    notepad .env
    python main.py
    ```
-   Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to the values from Google Cloud Console. `GOOGLE_REDIRECT_URI` must exactly match the URI registered in Google Cloud Console. For Render, set the credentials in the hosting provider's environment settings instead of putting them in the repository.
+   Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to the values from Google Cloud Console. `GOOGLE_REDIRECT_URI` must exactly match the URI registered in Google Cloud Console. For Render, set the credentials in the hosting provider's environment settings instead of putting them in the repository. If you only want Google sign-in and do not need to run the local copy, open the deployed app directly at https://domain-test-agent.onrender.com/.
 4. Choose **Continue with Google** on the login screen (or **Sign up with Google** after selecting Sign up). Google accounts require a verified email.
 
 ## Deploy to Render (free)
@@ -30,8 +30,7 @@
 The free Render service has an ephemeral filesystem. This project uses SQLite, so user accounts and run history can be lost when Render restarts or redeploys the service. The public deployment also does not create the local demo `admin / Admin@123` account; use Sign up or Google instead. The free service may sleep when idle and take time to wake.
 
 ## Flow
-Login page -> Dashboard (Test Lab, Run History). Pick a domain (banking, ecommerce, healthcare, food delivery, travel, telecom, hotel), inject bugs,
-press **Run agents**; use **Compare with baselines** for agentic vs happy-path vs random testing.
+Login page -> Home overview -> Test Lab or Run History. From Home, pick a domain (banking, ecommerce, healthcare, food delivery, travel, telecom, hotel), configure bug injections, then run agents or compare with baselines.
 
 ## Structure
 - `main.py` - web server, login/signup (PBKDF2 hashed passwords, SQLite `data.db`, HttpOnly session cookie)

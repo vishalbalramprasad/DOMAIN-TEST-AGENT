@@ -68,9 +68,10 @@ input:focus,select:focus{outline:none;border-color:rgba(105,240,255,.66);box-sha
 .google-btn:hover{background:#f8faff;box-shadow:0 3px 8px rgba(0,0,0,.22)}
 .google-btn:focus-visible{outline:3px solid rgba(105,240,255,.7);outline-offset:3px}
 .google-btn svg{width:18px;height:18px;flex:none}
+.auth-error-link{display:block;width:fit-content;margin-top:7px;color:#9eefff;font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 #app{display:grid;grid-template-columns:310px 1fr;min-height:100vh;background:transparent}
 aside{
-  background:linear-gradient(180deg,#040d1d 0%,#0b1628 100%);color:#dfeaff;padding:22px 18px;position:sticky;top:0;height:100vh;overflow:auto;border-right:1px solid rgba(126,209,255,.12);box-shadow:inset -1px 0 0 rgba(255,255,255,.04)
+  background:linear-gradient(180deg,#040d1d 0%,#0b1628 100%);color:#dfeaff;padding:22px 18px;position:static;top:auto;height:auto;min-height:100vh;overflow:visible;border-right:1px solid rgba(126,209,255,.12);box-shadow:inset -1px 0 0 rgba(255,255,255,.04)
 }
 .brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800;color:#fff;padding:4px 8px 18px}
 .brand span{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#5b7cff,#69f0ff);box-shadow:0 12px 20px rgba(91,124,255,.24)}
@@ -90,7 +91,7 @@ aside select{background:rgba(4,11,22,.9);color:#edf8ff;border-color:rgba(126,209
 #all,#none{color:#9ee9ff;font-size:12px}
 #st{margin-top:10px;padding:10px 12px;border-radius:12px;background:rgba(82,242,165,.08);border:1px solid rgba(82,242,165,.2);color:#ddfff3;font-size:12px}
 main{padding:28px;min-width:0}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px;padding:14px 18px;border:1px solid rgba(126,209,255,.12);background:rgba(15,26,45,.7);backdrop-filter:blur(8px);border-radius:18px;box-shadow:0 10px 22px rgba(0,0,0,.18)}
+.top{position:static;inset:auto;transform:none;display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px;padding:14px 18px;border:1px solid rgba(126,209,255,.12);background:rgba(15,26,45,.7);backdrop-filter:blur(8px);border-radius:18px;box-shadow:0 10px 22px rgba(0,0,0,.18)}
 .top h2{margin:0;font-size:30px;letter-spacing:-.04em;color:#edf8ff}
 .chip{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border-radius:999px;background:rgba(7,13,22,.9);border:1px solid rgba(126,209,255,.18);box-shadow:0 8px 16px rgba(0,0,0,.22);font-weight:600;color:#eaf7ff}
 .chip button{border:0;background:none;color:#69f0ff;font-weight:700;cursor:pointer;padding:0}
@@ -99,6 +100,34 @@ main{padding:28px;min-width:0}
 .kpi small{display:block;color:var(--mut);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
 .kpi b{display:block;font-size:28px;letter-spacing:-.04em;font-weight:800;color:#f4fbff}
 .kpi span{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--ok)}
+.home-hero{position:relative;overflow:hidden;padding:30px;border:1px solid rgba(105,240,255,.2);border-radius:22px;background:radial-gradient(circle at 88% 12%,rgba(105,240,255,.12),transparent 28%),linear-gradient(120deg,#0d1c32,#101936 62%,#17183a);box-shadow:0 16px 34px rgba(0,0,0,.2)}
+.home-eyebrow{color:#69f0ff;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.home-hero h1{margin:10px 0 8px;font-size:clamp(28px,4vw,42px);line-height:1.12;letter-spacing:-.045em;color:#f2faff}
+.home-hero p{max-width:650px;margin:0;color:#a9bbd8;font-size:15px}
+.home-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.home-actions .btn{width:auto;min-width:160px;margin:0}
+.home-secondary{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border:1px solid rgba(126,209,255,.2);border-radius:12px;background:rgba(7,14,25,.55);color:#dceaff;font-weight:700;cursor:pointer}
+.home-secondary:hover{border-color:rgba(105,240,255,.5);background:rgba(105,240,255,.06)}
+.home-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0 24px}
+.home-stat{padding:16px;border:1px solid rgba(126,209,255,.12);border-radius:16px;background:linear-gradient(180deg,#0d1729,#0b1628)}
+.home-stat b{display:block;color:#f2faff;font-size:23px;line-height:1.2}
+.home-stat span{display:block;margin-top:5px;color:var(--mut);font-size:12px}
+.home-section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:26px 0 12px}
+.home-section-head h3{margin:0;color:#f2faff;font-size:18px}
+.home-section-head p{margin:0;color:var(--mut);font-size:12px}
+.domain-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.domain-card{padding:16px;border:1px solid rgba(126,209,255,.14);border-radius:16px;background:rgba(11,20,35,.86);transition:transform .2s ease,border-color .2s ease}
+.domain-card:hover{transform:translateY(-2px);border-color:rgba(105,240,255,.4)}
+.domain-card h4{margin:0 0 6px;color:#eef8ff;font-size:15px}
+.domain-card p{min-height:38px;margin:0;color:var(--mut);font-size:12px}
+.domain-card-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.domain-card-meta span{padding:4px 8px;border:1px solid rgba(126,209,255,.12);border-radius:999px;color:#aac0df;font-size:10px;font-weight:700}
+.domain-card button{padding:8px 11px;border:1px solid rgba(105,240,255,.24);border-radius:10px;background:rgba(105,240,255,.07);color:#9eefff;font-weight:700;cursor:pointer}
+.domain-card button:hover{background:rgba(105,240,255,.14)}
+.workflow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:24px}
+.workflow-step{padding:14px;border-left:2px solid rgba(105,240,255,.52);border-radius:0 12px 12px 0;background:rgba(13,24,42,.72)}
+.workflow-step b{display:block;color:#eaf6ff;font-size:12px}
+.workflow-step span{display:block;margin-top:4px;color:var(--mut);font-size:11px}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
 .tabs button{border:1px solid rgba(126,209,255,.12);background:rgba(126,209,255,.04);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;color:#cde1ff;transition:.2s ease}
 .tabs .on{background:linear-gradient(135deg,var(--pri),var(--pri-2));border-color:transparent;color:#04111f;box-shadow:0 12px 22px rgba(91,124,255,.22)}
@@ -118,8 +147,9 @@ tr:last-child td{border-bottom:0}
 .good{background:rgba(82,242,165,.12);color:#89f0bf}
 .bar{height:14px;background:rgba(126,209,255,.08);border-radius:999px;min-width:120px;overflow:hidden}
 .bar i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--pri),var(--pri-3))}
-@media(max-width:960px){#auth{grid-template-columns:1fr}#app{grid-template-columns:1fr}.hero{padding:48px 26px}.aside{position:static;height:auto;border-right:0;border-bottom:1px solid rgba(126,209,255,.12)}main{padding:20px 16px}}
-@media(max-width:540px){.box{padding:18px 16px}.top{padding:12px 14px}.top h2{font-size:24px}.hero h1{font-size:34px}.kpis{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}}
+@media(max-width:960px){#auth{grid-template-columns:1fr}#app{grid-template-columns:1fr}aside{position:static;height:auto;min-height:0;overflow:visible;border-right:0;border-bottom:1px solid rgba(126,209,255,.12)}.hero{padding:48px 26px}main{padding:20px 16px}}
+@media(max-width:700px){.home-summary{grid-template-columns:1fr}.workflow{grid-template-columns:repeat(2,minmax(0,1fr))}.home-hero{padding:22px}}
+@media(max-width:540px){.box{padding:18px 16px}.top{padding:12px 14px}.top h2{font-size:24px}.hero h1{font-size:34px}.kpis{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}.home-actions{display:grid}.home-actions .btn,.home-secondary{width:100%}.home-section-head{align-items:start;flex-direction:column}}
 </style>
 </head><body>
 <section id="auth"><div class="hero"><div class="hero-inner"><h1>DomainTestAgent</h1><p>Domain-based intelligent software testing with agentic AI. Detect faults, simulate mutations, and compare baselines in real time.</p>
@@ -134,12 +164,14 @@ tr:last-child td{border-bottom:0}
 <div id="err" role="alert" aria-live="polite"></div><button class="btn" id="go">Login</button></div></div></section>
 
 <section id="app" class="hide"><aside><div class="brand">&#9881; DomainTestAgent</div>
-<div class="nav"><h3>MENU</h3><button class="on" data-v="lab">Test Lab</button><button data-v="hist">Run History</button></div>
+<div class="nav"><h3>MENU</h3><button class="on" data-v="home" aria-current="page">Home</button><button data-v="lab">Test Lab</button><button data-v="hist">Run History</button></div>
+<div id="labControls" class="hide">
 <h3>1 · DOMAIN</h3><select id="dom"></select><div id="dd" style="font-size:12px"></div>
 <h3>2 · INJECT BUGS</h3><div style="font-size:12px"><a href="#" id="all">Select all</a> · <a href="#" id="none">None (clean build)</a></div><div id="bugs"></div>
 <h3>3 · OPTIONS</h3><label style="font-size:13px"><input type="checkbox" id="mut" checked style="width:auto"> Run mutation evaluation</label>
-<button class="btn" id="run">&#9654; Run agents</button><button class="btn g" id="cmp">Compare with baselines</button><div id="st" style="margin-top:8px;font-size:12px"></div></aside>
-<main><div class="top"><h2 id="ttl">Test Lab</h2><div class="chip"><span id="who"></span> · <button id="out">Logout</button></div></div>
+<button class="btn" id="run">&#9654; Run agents</button><button class="btn g" id="cmp">Compare with baselines</button><div id="st" style="margin-top:8px;font-size:12px"></div></div></aside>
+<main><div class="top"><h2 id="ttl">Home</h2><div class="chip"><span id="who"></span> · <button id="out">Logout</button></div></div>
+<div id="home"></div>
 <div id="lab"><div class="kpis" id="kpis"></div><div class="tabs" id="tabs"></div><div class="panel" id="panel"><p class="mut">Choose a domain, inject bugs and press <b>Run agents</b>.</p></div></div>
 <div id="hist" class="hide"><div class="panel" id="hp"></div></div></main></section>
 <script>
@@ -151,13 +183,21 @@ $("#m-login").onclick=()=>setMode("login");$("#m-signup").onclick=()=>setMode("s
 async function submit(){try{$("#go").disabled=true;await api(mode,{name:$("#u").value,password:$("#p").value});$("#p").value="";boot()}catch(e){$("#err").textContent=e}$("#go").disabled=false}
 $("#go").onclick=submit;$("#p").onkeydown=e=>{if(e.key=="Enter")submit()};
 $("#out").onclick=async()=>{await api("logout",{});location.reload()};
-async function boot(){const m=await api("me");if(!m.user){$("#auth").classList.remove("hide");$("#app").classList.add("hide");const errors={google_not_configured:"Google sign-up is not configured. Set the Google OAuth environment variables and restart the app.",google_misconfigured:"The Google OAuth redirect URL is invalid. Check GOOGLE_REDIRECT_URI.",google_invalid_state:"Google sign-up expired or could not be verified. Please try again.",google_cancelled:"Google sign-up was cancelled.",google_unverified_email:"Google sign-up requires a verified email address.",google_failed:"Google sign-up failed. Check the OAuth settings and try again."};const issue=new URLSearchParams(location.search).get("google_error");if(issue&&errors[issue]){$("#err").textContent=errors[issue];window.history.replaceState(null,"",location.pathname)}return}
+async function boot(){const m=await api("me");if(!m.user){$("#auth").classList.remove("hide");$("#app").classList.add("hide");const errors={google_not_configured:"This local copy has no Google OAuth credentials. Use Google sign-in on the deployed app:",google_misconfigured:"The Google OAuth redirect URL is invalid. Check GOOGLE_REDIRECT_URI.",google_invalid_state:"Google sign-up expired or could not be verified. Please try again.",google_cancelled:"Google sign-up was cancelled.",google_unverified_email:"Google sign-up requires a verified email address.",google_failed:"Google sign-up failed. Check the OAuth settings and try again."};const issue=new URLSearchParams(location.search).get("google_error");if(issue&&errors[issue]){if(issue=="google_not_configured"){$("#err").innerHTML=errors[issue]+'<a class="auth-error-link" href="https://domain-test-agent.onrender.com/auth/google">Continue with Google on the live app &#8599;</a>'}else{$("#err").textContent=errors[issue]}window.history.replaceState(null,"",location.pathname)}return}
 $("#auth").classList.add("hide");$("#app").classList.remove("hide");$("#who").textContent="👤 "+m.user;D=await api("domains");
-$("#dom").innerHTML=Object.entries(D).map(([k,v])=>`<option value="${k}">${esc(k)}</option>`).join("");drawBugs()}
+$("#dom").innerHTML=Object.entries(D).map(([k,v])=>`<option value="${esc(k)}">${esc(v.title)}</option>`).join("");drawBugs();renderHome(m.user);switchView("home")}
+function renderHome(user){const domains=Object.entries(D);$("#home").innerHTML=`<section class="home-hero"><div class="home-eyebrow">Testing workspace</div><h1>Welcome back, ${esc(user)}</h1><p>Your domain testing workspace is ready. Choose a testing domain, configure bug injections, and launch an agent-driven run.</p><div class="home-actions"><button class="btn" data-home-action="lab">&#9654; Start testing</button><button class="home-secondary" data-home-action="history">View run history</button></div></section>
+<section class="home-summary" aria-label="Workspace overview"><div class="home-stat"><b>${domains.length}</b><span>Testing domains</span></div><div class="home-stat"><b>5</b><span>Testing agents in the workflow</span></div><div class="home-stat"><b>4</b><span>Steps from planning to report</span></div></section>
+<div class="home-section-head"><div><h3>Choose a domain</h3><p>Select an area to see its rules and available bug injections.</p></div></div>
+<section class="domain-cards">${domains.map(([key,d])=>`<article class="domain-card"><h4>${esc(d.title)}</h4><p>Run boundary and negative tests against domain-specific requirements.</p><div class="domain-card-meta"><span>${Object.keys(d.rules).length} RULES</span><span>${Object.keys(d.bugs).length} INJECTABLE BUGS</span></div><button data-domain="${esc(key)}">Configure tests &#8594;</button></article>`).join("")}</section>
+<div class="home-section-head"><div><h3>How a test run works</h3><p>The same structured flow powers every domain.</p></div></div>
+<section class="workflow" aria-label="Test run workflow"><div class="workflow-step"><b>01 · Plan</b><span>Prioritize domain rules</span></div><div class="workflow-step"><b>02 · Generate</b><span>Create boundary scenarios</span></div><div class="workflow-step"><b>03 · Execute</b><span>Run against the system model</span></div><div class="workflow-step"><b>04 · Analyze</b><span>Review defects and report</span></div></section>`}
+function switchView(view){const titles={home:"Home",lab:"Test Lab",hist:"Run History"};$("#home").classList.toggle("hide",view!="home");$("#lab").classList.toggle("hide",view!="lab");$("#hist").classList.toggle("hide",view!="hist");$("#labControls").classList.toggle("hide",view!="lab");$("#ttl").textContent=titles[view]||"Home";document.querySelectorAll(".nav button").forEach(button=>{const active=button.dataset.v==view;button.classList.toggle("on",active);if(active)button.setAttribute("aria-current","page");else button.removeAttribute("aria-current")});if(view=="hist")loadHistory()}
+document.querySelectorAll(".nav button").forEach(button=>button.onclick=()=>switchView(button.dataset.v));
+$("#home").onclick=e=>{const button=e.target.closest("[data-home-action],[data-domain]");if(!button)return;if(button.dataset.domain){$("#dom").value=button.dataset.domain;drawBugs()}switchView(button.dataset.homeAction=="history"?"hist":"lab")};
 function drawBugs(){const d=D[$("#dom").value];$("#dd").textContent=d.title;$("#bugs").innerHTML=Object.entries(d.bugs).map(([k,v])=>`<label class="bug"><input type="checkbox" value="${k}" checked><span><b>${k}</b>${esc(v)}</span></label>`).join("")}
 $("#dom").onchange=()=>{drawBugs();R=C=null;$("#kpis").innerHTML="";$("#tabs").innerHTML="";$("#panel").innerHTML='<p class="mut">Domain changed. Press <b>Run agents</b>.</p>'};
 const setAll=v=>document.querySelectorAll("#bugs input").forEach(i=>i.checked=v);$("#all").onclick=e=>{e.preventDefault();setAll(true)};$("#none").onclick=e=>{e.preventDefault();setAll(false)};
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav button").forEach(x=>x.className="");b.className="on";const h=b.dataset.v=="hist";$("#lab").classList.toggle("hide",h);$("#hist").classList.toggle("hide",!h);$("#ttl").textContent=h?"Run History":"Test Lab";if(h)history()});
 async function busy(f,msg){$("#st").textContent=msg;$("#run").disabled=$("#cmp").disabled=true;try{await f();$("#st").textContent="Done."}catch(e){$("#st").textContent="Error: "+e}$("#run").disabled=$("#cmp").disabled=false}
 $("#run").onclick=()=>busy(async()=>{R=await api("run",{domain:$("#dom").value,bugs:[...document.querySelectorAll("#bugs input:checked")].map(i=>i.value),mutation:$("#mut").checked});tab="defects";show()},"Agents running...");
 $("#cmp").onclick=()=>busy(async()=>{C=await api("compare",{domain:$("#dom").value});tab="base";show()},"Comparing...");
@@ -172,6 +212,6 @@ function show(){if(R)$("#kpis").innerHTML=[["Tests",R.kpi.tests],["Passed",R.kpi
 const keys=(R?Object.keys(TABS):[]).concat(C?["base"]:[]);$("#tabs").innerHTML=keys.map(k=>`<button class="${k==tab?"on":""}" data-k="${k}">${k=="base"?"Baselines":TABS[k][0]}</button>`).join("")+(R?`<a class="download-report" href="/api/report/${R.run_id}" title="Download this run's Markdown report">&#8595; Download report <span>(.md)</span></a>`:"");
 document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.k;show()});
 $("#panel").innerHTML=tab=="base"&&C?tbl(["Method","Tests","Bugs found","Detection rate"],C.rows.map(x=>[`<b>${x.method}</b>`,x.tests,`${x.killed} / ${C.total}`,`<div class="bar"><i style="width:${x.rate}%"></i></div> ${x.rate}%`])):TABS[tab][1](R)}
-async function history(){const h=await api("history");$("#hp").innerHTML=h.length?tbl(["Run","Time","Domain","Tests","Failed","Defects","Mutation","Report"],h.map(x=>[x.id,x.ts,esc(x.domain),x.kpi.tests,x.kpi.failed,x.kpi.defects,x.kpi.mutation==null?"-":x.kpi.mutation+"%",`<a class="report-link" href="/api/report/${x.id}">Download .md</a>`])):'<p class="mut">No runs yet.</p>'}
+async function loadHistory(){const h=await api("history");$("#hp").innerHTML=h.length?tbl(["Run","Time","Domain","Tests","Failed","Defects","Mutation","Report"],h.map(x=>[x.id,x.ts,esc(x.domain),x.kpi.tests,x.kpi.failed,x.kpi.defects,x.kpi.mutation==null?"-":x.kpi.mutation+"%",`<a class="report-link" href="/api/report/${x.id}">Download .md</a>`])):'<p class="mut">No runs yet.</p>'}
 boot();
 </script></body></html>
