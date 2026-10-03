@@ -1,0 +1,177 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DomainTestAgent</title>
+<style>
+:root{
+  --bg:#040b16;
+  --bg-soft:#0a1424;
+  --bg-panel:#0f1a2d;
+  --bg-panel-2:#101d33;
+  --ink:#edf6ff;
+  --mut:#8ea3c7;
+  --line:rgba(121,147,196,.22);
+  --pri:#69f0ff;
+  --pri-2:#5b7cff;
+  --pri-3:#9e6bff;
+  --ok:#52f2a5;
+  --bad:#ff5f7d;
+  --warn:#ffc857;
+  --shadow:0 20px 60px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font:14px/1.55 "Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(105,240,255,.1), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(158,107,255,.12), transparent 24%),
+    linear-gradient(180deg,#020915 0%,#060d1b 35%,#091523 100%);
+}
+button,select,input{font:inherit}
+a{color:inherit;text-decoration:none}
+.hide{display:none!important}
+.mut{color:var(--mut)}
+code{background:rgba(105,240,255,.08);padding:2px 8px;border-radius:8px;font-size:12px;color:#dffcff;border:1px solid rgba(105,240,255,.2)}
+#auth{min-height:100vh;display:grid;grid-template-columns:1.2fr 0.8fr;overflow:hidden}
+.hero{
+  position:relative;padding:72px 62px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(7,14,26,.96),rgba(14,24,42,.95));
+  color:#fff;box-shadow:inset -18px 0 36px rgba(0,0,0,.25)
+}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(10px)}
+.hero:before{width:340px;height:340px;background:rgba(105,240,255,.12);top:8%;left:18%}
+.hero:after{width:420px;height:420px;background:rgba(91,124,255,.10);right:6%;bottom:5%}
+.hero-inner{position:relative;z-index:1;max-width:560px}
+.hero h1{margin:0 0 10px;font-size:46px;line-height:1.04;letter-spacing:-.06em;color:#ecf9ff}
+.hero p{font-size:17px;line-height:1.75;color:rgba(227,239,255,.82);margin:0 0 28px}
+.hero ul{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.hero li{display:flex;align-items:flex-start;gap:12px;background:rgba(13,22,38,.72);border:1px solid rgba(105,240,255,.12);padding:12px 16px;border-radius:14px;box-shadow:0 0 0 1px rgba(255,255,255,.02) inset}
+.hero li:before{content:"✦";display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:rgba(105,240,255,.12);color:#7ef7ff;font-weight:700}
+.form{display:flex;align-items:center;justify-content:center;padding:40px;background:linear-gradient(180deg,#07111e,#0b1527)}
+.box{width:100%;max-width:380px;padding:26px 24px;border-radius:24px;background:rgba(12,19,32,.82);border:1px solid rgba(126,209,255,.18);box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+.box h2{margin:0 0 6px;font-size:32px;letter-spacing:-.05em;color:#eff9ff}
+.box .mut{font-size:14px;margin-bottom:22px;color:var(--mut)}
+.sw{display:flex;gap:8px;margin:18px 0 14px;padding:4px;border-radius:12px;background:rgba(139,160,206,.08);border:1px solid var(--line)}
+.sw button{flex:1;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:var(--mut);cursor:pointer;font-weight:700;transition:.2s ease}
+.sw .on{background:linear-gradient(135deg,var(--pri),var(--pri-2));color:#04111f;box-shadow:0 10px 18px rgba(105,240,255,.18)}
+label{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9ab3d8;margin:10px 0 6px}
+input,select{width:100%;padding:12px 14px;border:1px solid rgba(141,170,216,.22);border-radius:12px;margin:0 0 12px;background:rgba(5,12,21,.88);color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input{color:#edf8ff}
+input:focus,select:focus{outline:none;border-color:rgba(105,240,255,.66);box-shadow:0 0 0 4px rgba(105,240,255,.08)}
+.btn{background:linear-gradient(135deg,var(--pri),var(--pri-3));color:#04111f;border:0;border-radius:12px;padding:13px 16px;cursor:pointer;font-weight:800;width:100%;margin-top:8px;box-shadow:0 18px 28px rgba(91,124,255,.25);transition:transform .2s ease, box-shadow .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn.g{background:linear-gradient(135deg,#5ff0c5,#43d9bc);box-shadow:0 18px 28px rgba(82,242,165,.18)}
+.btn:disabled{opacity:.7;cursor:not-allowed;transform:none}
+#err{color:var(--bad);min-height:20px;font-weight:600;padding-top:2px}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:14px 0;color:#8295b8;font-size:10px;font-weight:800;letter-spacing:.14em}
+.auth-divider:before,.auth-divider:after{content:"";height:1px;flex:1;background:rgba(141,170,216,.2)}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:11px;width:100%;min-height:46px;padding:10px 14px;border:1px solid #d4d8df;border-radius:10px;background:#fff;color:#202124;font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 2px 5px rgba(0,0,0,.16);transition:background .15s ease,box-shadow .15s ease}
+.google-btn:hover{background:#f8faff;box-shadow:0 3px 8px rgba(0,0,0,.22)}
+.google-btn:focus-visible{outline:3px solid rgba(105,240,255,.7);outline-offset:3px}
+.google-btn svg{width:18px;height:18px;flex:none}
+#app{display:grid;grid-template-columns:310px 1fr;min-height:100vh;background:transparent}
+aside{
+  background:linear-gradient(180deg,#040d1d 0%,#0b1628 100%);color:#dfeaff;padding:22px 18px;position:sticky;top:0;height:100vh;overflow:auto;border-right:1px solid rgba(126,209,255,.12);box-shadow:inset -1px 0 0 rgba(255,255,255,.04)
+}
+.brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800;color:#fff;padding:4px 8px 18px}
+.brand span{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#5b7cff,#69f0ff);box-shadow:0 12px 20px rgba(91,124,255,.24)}
+aside h3{margin:22px 0 10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7e92ba;font-weight:700}
+.nav{display:grid;gap:6px}
+.nav button{display:block;width:100%;text-align:left;background:rgba(255,255,255,.02);border:1px solid transparent;color:#dfeaff;padding:11px 12px;border-radius:12px;cursor:pointer;transition:.2s ease;font-weight:600}
+.nav button:hover{background:rgba(255,255,255,.04);border-color:rgba(105,240,255,.16)}
+.nav .on{background:linear-gradient(135deg,rgba(105,240,255,.12),rgba(91,124,255,.18));border-color:rgba(105,240,255,.35);color:#fff}
+aside select{background:rgba(4,11,22,.9);color:#edf8ff;border-color:rgba(126,209,255,.2);padding-left:12px}
+#dd{margin-top:8px;font-size:12px;color:#bfd2ff;padding:0 2px}
+#bugs{display:grid;gap:10px;padding-top:4px}
+.bug{display:flex;align-items:flex-start;gap:10px;padding:10px 8px;border:1px solid rgba(126,209,255,.12);border-radius:12px;background:rgba(255,255,255,.01)}
+.bug:hover{background:rgba(105,240,255,.03)}
+.bug input{width:auto;margin:4px 0 0}
+.bug b{display:block;color:#fff;font-size:13px;margin-bottom:2px}
+.bug span{font-size:12px;color:#d8e6ff;line-height:1.5}
+#all,#none{color:#9ee9ff;font-size:12px}
+#st{margin-top:10px;padding:10px 12px;border-radius:12px;background:rgba(82,242,165,.08);border:1px solid rgba(82,242,165,.2);color:#ddfff3;font-size:12px}
+main{padding:28px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px;padding:14px 18px;border:1px solid rgba(126,209,255,.12);background:rgba(15,26,45,.7);backdrop-filter:blur(8px);border-radius:18px;box-shadow:0 10px 22px rgba(0,0,0,.18)}
+.top h2{margin:0;font-size:30px;letter-spacing:-.04em;color:#edf8ff}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:9px 14px;border-radius:999px;background:rgba(7,13,22,.9);border:1px solid rgba(126,209,255,.18);box-shadow:0 8px 16px rgba(0,0,0,.22);font-weight:600;color:#eaf7ff}
+.chip button{border:0;background:none;color:#69f0ff;font-weight:700;cursor:pointer;padding:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:18px}
+.kpi{background:linear-gradient(180deg,#0d1729,#0d1b32);border:1px solid rgba(126,209,255,.12);border-radius:18px;padding:16px 16px 14px;box-shadow:0 12px 26px rgba(0,0,0,.2)}
+.kpi small{display:block;color:var(--mut);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.kpi b{display:block;font-size:28px;letter-spacing:-.04em;font-weight:800;color:#f4fbff}
+.kpi span{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--ok)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.tabs button{border:1px solid rgba(126,209,255,.12);background:rgba(126,209,255,.04);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;color:#cde1ff;transition:.2s ease}
+.tabs .on{background:linear-gradient(135deg,var(--pri),var(--pri-2));border-color:transparent;color:#04111f;box-shadow:0 12px 22px rgba(91,124,255,.22)}
+.download-report{display:inline-flex;align-items:center;gap:8px;width:auto;margin:0 0 0 auto;padding:10px 15px;border:1px solid rgba(105,240,255,.5);border-radius:12px;background:linear-gradient(135deg,#69f0ff,#7890ff);color:#04111f;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 10px 22px rgba(105,240,255,.14);transition:transform .2s ease,box-shadow .2s ease}
+.download-report:hover{transform:translateY(-1px);box-shadow:0 14px 26px rgba(105,240,255,.24)}
+.download-report:focus-visible,.report-link:focus-visible{outline:2px solid #69f0ff;outline-offset:3px}
+.report-link{display:inline-flex;align-items:center;padding:5px 10px;border:1px solid rgba(105,240,255,.22);border-radius:999px;background:rgba(105,240,255,.08);color:#9eefff;font-weight:700;white-space:nowrap}
+.panel{background:rgba(11,17,29,.8);border:1px solid rgba(126,209,255,.12);border-radius:18px;padding:10px 14px;overflow:auto;box-shadow:0 10px 20px rgba(0,0,0,.16)}
+table{border-collapse:collapse;width:100%}
+th{font-size:11px;color:#9cb0d6;text-transform:uppercase;letter-spacing:.08em;text-align:left;padding:10px 8px;font-weight:800}
+td,th{padding:10px 8px;border-bottom:1px solid rgba(126,209,255,.12);vertical-align:top;color:#deebff}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.02em}
+.Critical,.bad{background:rgba(255,95,125,.12);color:#ff86a0}
+.High{background:rgba(255,200,87,.12);color:#ffc857}
+.Medium{background:rgba(105,240,255,.08);color:#8ecdf2}
+.good{background:rgba(82,242,165,.12);color:#89f0bf}
+.bar{height:14px;background:rgba(126,209,255,.08);border-radius:999px;min-width:120px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--pri),var(--pri-3))}
+@media(max-width:960px){#auth{grid-template-columns:1fr}#app{grid-template-columns:1fr}.hero{padding:48px 26px}.aside{position:static;height:auto;border-right:0;border-bottom:1px solid rgba(126,209,255,.12)}main{padding:20px 16px}}
+@media(max-width:540px){.box{padding:18px 16px}.top{padding:12px 14px}.top h2{font-size:24px}.hero h1{font-size:34px}.kpis{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}}
+</style>
+</head><body>
+<section id="auth"><div class="hero"><div class="hero-inner"><h1>DomainTestAgent</h1><p>Domain-based intelligent software testing with agentic AI. Detect faults, simulate mutations, and compare baselines in real time.</p>
+<ul><li>Autonomous planner and executor pipeline</li><li>Banking, e-commerce and healthcare rule coverage</li><li>Mutation score, traceability and agentic reports</li></ul></div></div>
+<div class="form"><div class="box"><h2>Welcome</h2><div class="mut">Secure access to your testing matrix</div>
+<div class="sw"><button id="m-login" class="on">Login</button><button id="m-signup">Sign up</button></div>
+<label>Username</label><input id="u" autocomplete="username" placeholder="Enter username"><label>Password</label><input id="p" type="password" autocomplete="current-password" placeholder="Enter password">
+<a class="google-btn" id="googleAuth" href="/auth/google" aria-label="Continue with Google">
+<svg aria-hidden="true" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.74 7.18l7.72 5.99c4.51-4.17 7.06-10.31 7.06-17.64z"/><path fill="#FBBC05" d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.55 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.91-5.81l-7.72-5.99c-2.14 1.45-4.88 2.3-8.19 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+<span id="googleLabel">Continue with Google</span></a>
+<div class="auth-divider" aria-hidden="true">OR</div>
+<div id="err" role="alert" aria-live="polite"></div><button class="btn" id="go">Login</button></div></div></section>
+
+<section id="app" class="hide"><aside><div class="brand">&#9881; DomainTestAgent</div>
+<div class="nav"><h3>MENU</h3><button class="on" data-v="lab">Test Lab</button><button data-v="hist">Run History</button></div>
+<h3>1 · DOMAIN</h3><select id="dom"></select><div id="dd" style="font-size:12px"></div>
+<h3>2 · INJECT BUGS</h3><div style="font-size:12px"><a href="#" id="all">Select all</a> · <a href="#" id="none">None (clean build)</a></div><div id="bugs"></div>
+<h3>3 · OPTIONS</h3><label style="font-size:13px"><input type="checkbox" id="mut" checked style="width:auto"> Run mutation evaluation</label>
+<button class="btn" id="run">&#9654; Run agents</button><button class="btn g" id="cmp">Compare with baselines</button><div id="st" style="margin-top:8px;font-size:12px"></div></aside>
+<main><div class="top"><h2 id="ttl">Test Lab</h2><div class="chip"><span id="who"></span> · <button id="out">Logout</button></div></div>
+<div id="lab"><div class="kpis" id="kpis"></div><div class="tabs" id="tabs"></div><div class="panel" id="panel"><p class="mut">Choose a domain, inject bugs and press <b>Run agents</b>.</p></div></div>
+<div id="hist" class="hide"><div class="panel" id="hp"></div></div></main></section>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function api(p,b){const r=await fetch("/api/"+p,{method:b?"POST":"GET",headers:{"Content-Type":"application/json"},body:b?JSON.stringify(b):undefined});const j=await r.json();if(!r.ok)throw j.error||"Error";return j}
+let mode="login",D={},R=null,C=null,tab="defects";
+function setMode(m){mode=m;$("#m-login").className=m=="login"?"on":"";$("#m-signup").className=m=="signup"?"on":"";$("#go").textContent=m=="login"?"Login":"Create account";$("#googleLabel").textContent=m=="login"?"Continue with Google":"Sign up with Google";$("#googleAuth").setAttribute("aria-label",m=="login"?"Continue with Google":"Sign up with Google");$("#err").textContent=""}
+$("#m-login").onclick=()=>setMode("login");$("#m-signup").onclick=()=>setMode("signup");
+async function submit(){try{$("#go").disabled=true;await api(mode,{name:$("#u").value,password:$("#p").value});$("#p").value="";boot()}catch(e){$("#err").textContent=e}$("#go").disabled=false}
+$("#go").onclick=submit;$("#p").onkeydown=e=>{if(e.key=="Enter")submit()};
+$("#out").onclick=async()=>{await api("logout",{});location.reload()};
+async function boot(){const m=await api("me");if(!m.user){$("#auth").classList.remove("hide");$("#app").classList.add("hide");const errors={google_not_configured:"Google sign-up is not configured. Set the Google OAuth environment variables and restart the app.",google_misconfigured:"The Google OAuth redirect URL is invalid. Check GOOGLE_REDIRECT_URI.",google_invalid_state:"Google sign-up expired or could not be verified. Please try again.",google_cancelled:"Google sign-up was cancelled.",google_unverified_email:"Google sign-up requires a verified email address.",google_failed:"Google sign-up failed. Check the OAuth settings and try again."};const issue=new URLSearchParams(location.search).get("google_error");if(issue&&errors[issue]){$("#err").textContent=errors[issue];window.history.replaceState(null,"",location.pathname)}return}
+$("#auth").classList.add("hide");$("#app").classList.remove("hide");$("#who").textContent="👤 "+m.user;D=await api("domains");
+$("#dom").innerHTML=Object.entries(D).map(([k,v])=>`<option value="${k}">${esc(k)}</option>`).join("");drawBugs()}
+function drawBugs(){const d=D[$("#dom").value];$("#dd").textContent=d.title;$("#bugs").innerHTML=Object.entries(d.bugs).map(([k,v])=>`<label class="bug"><input type="checkbox" value="${k}" checked><span><b>${k}</b>${esc(v)}</span></label>`).join("")}
+$("#dom").onchange=()=>{drawBugs();R=C=null;$("#kpis").innerHTML="";$("#tabs").innerHTML="";$("#panel").innerHTML='<p class="mut">Domain changed. Press <b>Run agents</b>.</p>'};
+const setAll=v=>document.querySelectorAll("#bugs input").forEach(i=>i.checked=v);$("#all").onclick=e=>{e.preventDefault();setAll(true)};$("#none").onclick=e=>{e.preventDefault();setAll(false)};
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav button").forEach(x=>x.className="");b.className="on";const h=b.dataset.v=="hist";$("#lab").classList.toggle("hide",h);$("#hist").classList.toggle("hide",!h);$("#ttl").textContent=h?"Run History":"Test Lab";if(h)history()});
+async function busy(f,msg){$("#st").textContent=msg;$("#run").disabled=$("#cmp").disabled=true;try{await f();$("#st").textContent="Done."}catch(e){$("#st").textContent="Error: "+e}$("#run").disabled=$("#cmp").disabled=false}
+$("#run").onclick=()=>busy(async()=>{R=await api("run",{domain:$("#dom").value,bugs:[...document.querySelectorAll("#bugs input:checked")].map(i=>i.value),mutation:$("#mut").checked});tab="defects";show()},"Agents running...");
+$("#cmp").onclick=()=>busy(async()=>{C=await api("compare",{domain:$("#dom").value});tab="base";show()},"Comparing...");
+const tbl=(h,r)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${r.map(x=>`<tr>${x.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</table>`;
+const sev=s=>`<span class="pill ${s}">${s}</span>`,st=ok=>`<span class="pill ${ok?"good":"bad"}">${ok?"PASS":"FAIL"}</span>`,codes=a=>a.map(t=>`<code>${t}</code>`).join(" ");
+const TABS={defects:["Defects",r=>r.defects.length?tbl(["ID","Severity","Rule","Root-cause hypothesis","Failing tests"],r.defects.map(d=>[d.id,sev(d.sev),`<b>${d.rule}</b> ${esc(d.text)}`,esc(d.cause),codes(d.tests)])):'<p class="mut">No defects found - the build is clean.</p>'],
+results:["Test results",r=>tbl(["ID","Rule","Scenario","Input","Expected","Actual","Status"],r.results.map(x=>[x.id,x.rule,esc(x.label),`<code>${esc(JSON.stringify(x.inp))}</code>`,esc(x.exp),esc(x.act),st(x.ok)]))],
+trace:["Agent trace",r=>tbl(["Agent","Action"],r.trace.map(t=>[`<b>${t.agent}</b>`,esc(t.msg)]))],
+mut:["Mutation evaluation",r=>r.mutation.length?tbl(["Mutant","Description","Result","Detected by"],r.mutation.map(m=>[`<b>${m.bug}</b>`,esc(m.desc),`<span class="pill ${m.killed?"good":"bad"}">${m.killed?"KILLED":"SURVIVED"}</span>`,codes(m.by)])):'<p class="mut">Mutation evaluation was turned off.</p>'],
+rules:["Requirements",r=>tbl(["Rule","Severity","Description","Tests"],Object.entries(D[r.domain].rules).map(([k,v])=>[`<b>${k}</b>`,sev(v.sev),esc(v.text),codes(r.results.filter(x=>x.rule==k).map(x=>x.id))]))]};
+function show(){if(R)$("#kpis").innerHTML=[["Tests",R.kpi.tests],["Passed",R.kpi.passed],["Failed",R.kpi.failed],["Defects",R.kpi.defects],["Rule coverage",R.kpi.coverage+"%"],["Mutation score",R.kpi.mutation==null?"-":R.kpi.mutation+"%"],["False positives",R.kpi.fp]].map(([a,b])=>`<div class="kpi"><small>${a}</small><b>${b}</b></div>`).join("");
+const keys=(R?Object.keys(TABS):[]).concat(C?["base"]:[]);$("#tabs").innerHTML=keys.map(k=>`<button class="${k==tab?"on":""}" data-k="${k}">${k=="base"?"Baselines":TABS[k][0]}</button>`).join("")+(R?`<a class="download-report" href="/api/report/${R.run_id}" title="Download this run's Markdown report">&#8595; Download report <span>(.md)</span></a>`:"");
+document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.k;show()});
+$("#panel").innerHTML=tab=="base"&&C?tbl(["Method","Tests","Bugs found","Detection rate"],C.rows.map(x=>[`<b>${x.method}</b>`,x.tests,`${x.killed} / ${C.total}`,`<div class="bar"><i style="width:${x.rate}%"></i></div> ${x.rate}%`])):TABS[tab][1](R)}
+async function history(){const h=await api("history");$("#hp").innerHTML=h.length?tbl(["Run","Time","Domain","Tests","Failed","Defects","Mutation","Report"],h.map(x=>[x.id,x.ts,esc(x.domain),x.kpi.tests,x.kpi.failed,x.kpi.defects,x.kpi.mutation==null?"-":x.kpi.mutation+"%",`<a class="report-link" href="/api/report/${x.id}">Download .md</a>`])):'<p class="mut">No runs yet.</p>'}
+boot();
+</script></body></html>
