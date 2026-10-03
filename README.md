@@ -36,7 +36,7 @@ Login page -> Home overview -> Test Lab or Run History. From Home, pick a domain
 - `main.py` - web server, login/signup (PBKDF2 hashed passwords, SQLite `data.db`, HttpOnly session cookie)
 - `engine.py` - Planner, Generator, Executor, Analyzer/Oracle, Reporter, mutation and baseline evaluation
 - `domains.py` - domain rules, system under test with injectable bugs, test scenarios (add new domains here)
-- `static/index.html` - login page and dashboard
+- `static/index.html` - login page, Home, dashboard, and responsive branded footer with navigation and copyright notice
 - `reports/` - markdown reports | `tests/generated/` - generated pytest suites
 
 Run generated tests: `pytest tests/generated -q`; with bugs (Windows): `set BUGS=UPI_BOUNDARY,DECIMALS` then pytest.

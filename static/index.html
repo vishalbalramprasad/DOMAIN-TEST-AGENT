@@ -127,6 +127,22 @@ main{padding:28px;min-width:0}
 .workflow-step{padding:14px;border-left:2px solid rgba(105,240,255,.52);border-radius:0 12px 12px 0;background:rgba(13,24,42,.72)}
 .workflow-step b{display:block;color:#eaf6ff;font-size:12px}
 .workflow-step span{display:block;margin-top:4px;color:var(--mut);font-size:11px}
+.site-footer{margin-top:42px;padding:30px 0 0;border-top:1px solid rgba(126,209,255,.16)}
+.footer-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(130px,1fr) minmax(130px,1fr);gap:32px;padding-bottom:28px}
+.footer-brand{display:flex;align-items:center;gap:11px;color:#f1f8ff;font-weight:800;font-size:16px}
+.footer-brand-mark{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid rgba(105,240,255,.24);border-radius:12px;background:linear-gradient(135deg,rgba(91,124,255,.24),rgba(105,240,255,.13));color:#8bf5ff;font-size:19px}
+.footer-brand small{display:block;margin-top:2px;color:#8ea3c7;font-size:11px;font-weight:500}
+.footer-description{max-width:420px;margin:14px 0;color:#a6b7d1;font-size:13px}
+.footer-tagline{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(82,242,165,.2);border-radius:999px;background:rgba(82,242,165,.05);color:#a8f6d1;font-size:12px}
+.footer-column h3{margin:0 0 12px;color:#8398bd;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.footer-links{display:grid;justify-items:start;gap:10px}
+.footer-links a,.footer-links button{padding:0;border:0;background:none;color:#d1def2;font:inherit;font-size:13px;text-align:left;cursor:pointer}
+.footer-links a:hover,.footer-links button:hover{color:#69f0ff}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0;border-top:1px solid rgba(126,209,255,.12);color:#8498b8;font-size:12px}
+.footer-bottom-right{display:flex;align-items:center;gap:14px}
+.footer-bottom-right button{padding:0;border:0;background:none;color:#9bb0d0;font:inherit;cursor:pointer}
+.footer-bottom-right button:hover{color:#69f0ff}
+.site-footer a:focus-visible,.site-footer button:focus-visible{outline:2px solid #69f0ff;outline-offset:4px;border-radius:3px}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
 .tabs button{border:1px solid rgba(126,209,255,.12);background:rgba(126,209,255,.04);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;color:#cde1ff;transition:.2s ease}
 .tabs .on{background:linear-gradient(135deg,var(--pri),var(--pri-2));border-color:transparent;color:#04111f;box-shadow:0 12px 22px rgba(91,124,255,.22)}
@@ -148,7 +164,8 @@ tr:last-child td{border-bottom:0}
 .bar i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--pri),var(--pri-3))}
 @media(max-width:960px){#auth{grid-template-columns:1fr}#app{grid-template-columns:1fr}aside{position:static;height:auto;min-height:0;overflow:visible;border-right:0;border-bottom:1px solid rgba(126,209,255,.12)}.hero{padding:48px 26px}main{padding:20px 16px}}
 @media(max-width:700px){.home-summary{grid-template-columns:1fr}.workflow{grid-template-columns:repeat(2,minmax(0,1fr))}.home-hero{padding:22px}}
-@media(max-width:540px){.box{padding:18px 16px}.top{padding:12px 14px}.top h2{font-size:24px}.hero h1{font-size:34px}.kpis{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}.home-actions{display:grid}.home-actions .btn,.home-secondary{width:100%}.home-section-head{align-items:start;flex-direction:column}}
+@media(max-width:700px){.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.footer-about{grid-column:1/-1}}
+@media(max-width:540px){.box{padding:18px 16px}.top{padding:12px 14px}.top h2{font-size:24px}.hero h1{font-size:34px}.kpis{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}.home-actions{display:grid}.home-actions .btn,.home-secondary{width:100%}.home-section-head{align-items:start;flex-direction:column}.footer-grid{grid-template-columns:1fr 1fr;gap:20px}.footer-bottom{align-items:flex-start;flex-direction:column}.footer-bottom-right{width:100%;justify-content:space-between}}
 </style>
 </head><body>
 <section id="auth"><div class="hero"><div class="hero-inner"><h1>DomainTestAgent</h1><p>Domain-based intelligent software testing with agentic AI. Detect faults, simulate mutations, and compare baselines in real time.</p>
@@ -172,7 +189,25 @@ tr:last-child td{border-bottom:0}
 <main><div class="top"><h2 id="ttl">Home</h2><div class="chip"><span id="who"></span> · <button id="out">Logout</button></div></div>
 <div id="home"></div>
 <div id="lab"><div class="kpis" id="kpis"></div><div class="tabs" id="tabs"></div><div class="panel" id="panel"><p class="mut">Choose a domain, inject bugs and press <b>Run agents</b>.</p></div></div>
-<div id="hist" class="hide"><div class="panel" id="hp"></div></div></main></section>
+<div id="hist" class="hide"><div class="panel" id="hp"></div></div>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <section class="footer-about" aria-label="About DomainTestAgent">
+      <div class="footer-brand"><span class="footer-brand-mark" aria-hidden="true">&#9881;</span><span>DomainTestAgent<small>Systematic testing. Clearer results.</small></span></div>
+      <p class="footer-description">Domain-based software testing that helps teams explore rules, detect defects, and understand test results.</p>
+      <span class="footer-tagline"><span aria-hidden="true">&#10003;</span> Plan. Test. Analyze. Improve.</span>
+    </section>
+    <nav class="footer-column" aria-label="Explore">
+      <h3>Explore</h3>
+      <div class="footer-links"><a href="#home" data-footer-view="home">Home</a><a href="#lab" data-footer-view="lab">Test Lab</a><a href="#hist" data-footer-view="hist">Run History</a></div>
+    </nav>
+    <nav class="footer-column" aria-label="Account">
+      <h3>Account</h3>
+      <div class="footer-links"><button type="button" id="footerSignOut">Sign out</button><button type="button" id="backToTop">Back to top &#8593;</button></div>
+    </nav>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 DomainTestAgent. All rights reserved.</span><span class="footer-bottom-right"><span>Built for systematic software testing</span></span></div>
+</footer></main></section>
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 async function api(p,b){const r=await fetch("/api/"+p,{method:b?"POST":"GET",headers:{"Content-Type":"application/json"},body:b?JSON.stringify(b):undefined});const j=await r.json();if(!r.ok)throw j.error||"Error";return j}
@@ -181,7 +216,8 @@ function setMode(m){mode=m;$("#m-login").className=m=="login"?"on":"";$("#m-sign
 $("#m-login").onclick=()=>setMode("login");$("#m-signup").onclick=()=>setMode("signup");
 async function submit(){try{$("#go").disabled=true;await api(mode,{name:$("#u").value,password:$("#p").value});$("#p").value="";boot()}catch(e){$("#err").textContent=e}$("#go").disabled=false}
 $("#go").onclick=submit;$("#p").onkeydown=e=>{if(e.key=="Enter")submit()};
-$("#out").onclick=async()=>{await api("logout",{});location.reload()};
+async function signOut(){await api("logout",{});location.reload()}
+$("#out").onclick=signOut;$("#footerSignOut").onclick=signOut;
 async function boot(){const m=await api("me");if(!m.user){$("#auth").classList.remove("hide");$("#app").classList.add("hide");const errors={google_not_configured:"Google sign-up is not configured on this server. Please contact the app administrator.",google_misconfigured:"The Google OAuth redirect URL is invalid. Check GOOGLE_REDIRECT_URI.",google_invalid_state:"Google sign-up expired or could not be verified. Please try again.",google_cancelled:"Google sign-up was cancelled.",google_unverified_email:"Google sign-up requires a verified email address.",google_failed:"Google sign-up failed. Check the OAuth settings and try again."};const issue=new URLSearchParams(location.search).get("google_error");if(issue&&errors[issue]){$("#err").textContent=errors[issue];window.history.replaceState(null,"",location.pathname)}return}
 $("#auth").classList.add("hide");$("#app").classList.remove("hide");$("#who").textContent="👤 "+m.user;D=await api("domains");
 $("#dom").innerHTML=Object.entries(D).map(([k,v])=>`<option value="${esc(k)}">${esc(v.title)}</option>`).join("");drawBugs();renderHome(m.user);switchView("home")}
@@ -194,6 +230,8 @@ function renderHome(user){const domains=Object.entries(D);$("#home").innerHTML=`
 function switchView(view){const titles={home:"Home",lab:"Test Lab",hist:"Run History"};$("#home").classList.toggle("hide",view!="home");$("#lab").classList.toggle("hide",view!="lab");$("#hist").classList.toggle("hide",view!="hist");$("#labControls").classList.toggle("hide",view!="lab");$("#ttl").textContent=titles[view]||"Home";document.querySelectorAll(".nav button").forEach(button=>{const active=button.dataset.v==view;button.classList.toggle("on",active);if(active)button.setAttribute("aria-current","page");else button.removeAttribute("aria-current")});if(view=="hist")loadHistory()}
 document.querySelectorAll(".nav button").forEach(button=>button.onclick=()=>switchView(button.dataset.v));
 $("#home").onclick=e=>{const button=e.target.closest("[data-home-action],[data-domain]");if(!button)return;if(button.dataset.domain){$("#dom").value=button.dataset.domain;drawBugs()}switchView(button.dataset.homeAction=="history"?"hist":"lab")};
+document.querySelector(".site-footer").onclick=e=>{const link=e.target.closest("[data-footer-view]");if(!link)return;e.preventDefault();switchView(link.dataset.footerView);window.scrollTo({top:0,behavior:"smooth"})};
+$("#backToTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 function drawBugs(){const d=D[$("#dom").value];$("#dd").textContent=d.title;$("#bugs").innerHTML=Object.entries(d.bugs).map(([k,v])=>`<label class="bug"><input type="checkbox" value="${k}" checked><span><b>${k}</b>${esc(v)}</span></label>`).join("")}
 $("#dom").onchange=()=>{drawBugs();R=C=null;$("#kpis").innerHTML="";$("#tabs").innerHTML="";$("#panel").innerHTML='<p class="mut">Domain changed. Press <b>Run agents</b>.</p>'};
 const setAll=v=>document.querySelectorAll("#bugs input").forEach(i=>i.checked=v);$("#all").onclick=e=>{e.preventDefault();setAll(true)};$("#none").onclick=e=>{e.preventDefault();setAll(false)};
