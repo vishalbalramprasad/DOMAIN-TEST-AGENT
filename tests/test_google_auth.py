@@ -29,6 +29,16 @@ class GoogleAuthTests(unittest.TestCase):
         self.assertEqual("openid email profile", params["scope"][0])
         self.assertNotIn("client_secret", params)
 
+    def test_env_file_loads_values_without_overwriting_existing_environment(self):
+        env_file = os.path.join(self.temp_dir.name, ".env")
+        with open(env_file, "w", encoding="utf-8") as file:
+            file.write("# credentials\nGOOGLE_CLIENT_ID='from-file'\nAPP_TEST_VALUE=file-value\ninvalid line\n")
+        with patch.dict(os.environ, {"APP_TEST_VALUE": "already-set"}, clear=True):
+            main.load_env_file(env_file)
+
+            self.assertEqual("from-file", os.environ["GOOGLE_CLIENT_ID"])
+            self.assertEqual("already-set", os.environ["APP_TEST_VALUE"])
+
     def test_render_redirect_uri_is_derived_from_public_url(self):
         with patch.dict(os.environ, {
             "GOOGLE_REDIRECT_URI": "",

@@ -9,14 +9,13 @@
 1. In Google Cloud Console, create a **Web application** OAuth client and configure the OAuth consent screen. If the app is in testing mode, add the Google accounts that will test it.
 2. Add this exact authorized redirect URI to the client:
    `http://127.0.0.1:8765/auth/google/callback`
-3. In PowerShell, set the credentials in the same terminal used to start the app. Do not put the client secret in source code or commit it:
+3. Copy `.env.example` to `.env`, then enter your credentials in `.env`. The app loads this ignored local file on startup, and real environment variables take precedence. Never commit `.env` or share its client secret:
    ```powershell
-   $env:GOOGLE_CLIENT_ID = "your-client-id"
-   $env:GOOGLE_CLIENT_SECRET = "your-client-secret"
-   $env:GOOGLE_REDIRECT_URI = "http://127.0.0.1:8765/auth/google/callback"
+   Copy-Item .env.example .env
+   notepad .env
    python main.py
    ```
-   `GOOGLE_REDIRECT_URI` must exactly match the URI registered in Google Cloud Console. For a deployed app, configure its HTTPS callback URL and keep these environment variables in the hosting provider's secret settings.
+   Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to the values from Google Cloud Console. `GOOGLE_REDIRECT_URI` must exactly match the URI registered in Google Cloud Console. For Render, set the credentials in the hosting provider's environment settings instead of putting them in the repository.
 4. Choose **Continue with Google** on the login screen (or **Sign up with Google** after selecting Sign up). Google accounts require a verified email.
 
 ## Deploy to Render (free)

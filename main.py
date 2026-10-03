@@ -11,6 +11,22 @@ from domains import DOMAINS
 ROOT = os.path.dirname(os.path.abspath(__file__)); DB = os.path.join(ROOT, "data.db"); SESS = {}; GOOGLE_PENDING = {}
 GOOGLE_REDIRECT_DEFAULT = "http://127.0.0.1:8765/auth/google/callback"
 
+def load_env_file(path=os.path.join(ROOT, ".env")):
+    if not os.path.isfile(path):
+        return
+    with open(path, encoding="utf-8") as env_file:
+        for raw_line in env_file:
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key, value = key.strip(), value.strip()
+            if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", key):
+                continue
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
+                value = value[1:-1]
+            os.environ.setdefault(key, value)
+
 @contextmanager
 def db():
     connection = sqlite3.connect(DB)
@@ -232,6 +248,7 @@ class H(BaseHTTPRequestHandler):
         self.out(404, {"error": "Not found"})
 
 if __name__ == "__main__":
+    load_env_file()
     init(); port = int(os.environ.get("PORT", 8765)); s = ThreadingHTTPServer(("0.0.0.0", port), H)
     print("DomainTestAgent running at http://127.0.0.1:%d  (default login: admin / Admin@123)  Ctrl+C to stop" % port)
     try: webbrowser.open("http://127.0.0.1:%d" % port)
